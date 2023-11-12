@@ -1,9 +1,9 @@
 import { Controller, NotFoundException } from '@nestjs/common';
 import { TypedBody, TypedParam, TypedRoute } from '@nestia/core';
+import { validate } from 'typia';
 import { UsersService } from './users.service';
 import type { User } from '@prisma/client';
-import { JsonValue } from '@prisma/client/runtime/library';
-import { validate } from 'typia';
+import type { JsonArray, JsonValue } from '@prisma/client/runtime/library';
 
 export interface CreateUserReqBody {
   email: string;
@@ -47,8 +47,9 @@ export class UsersController {
     const position = (user.payload as any).camera.position;
 
     let a: IJsonArr;
-    console.log('User::', validate<TJsonArr>(position));
-    console.log('User::', validate<IJsonArr>(position));
+    console.log('Array<JsonValue>::', validate<TJsonArr>(position));
+    console.log('extends Array<JsonValue>::', validate<IJsonArr>(position));
+    console.log('JsonArray::', validate<JsonArray>(position));
     return { user };
   }
 }
