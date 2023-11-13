@@ -63,8 +63,17 @@ export class UsersController {
 
   @TypedRoute.Post()
   async createUser(
-    @TypedBody() form: CreateUserReqBody,
+    // @TypedBody() form: CreateUserReqBody,
   ): Promise<CreateUserResBody> {
+    const form = {
+      "email": "test@email.com",
+      "payload": {
+          "camera": {
+              "position": [1, 2, 3]
+          },
+          "hello": "world"
+      }
+    };
     const { email, payload } = form;
     const user = await this.usersService.create({
       email: Date.now() + email,
